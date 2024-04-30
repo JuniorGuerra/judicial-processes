@@ -1,0 +1,53 @@
+informacion de:
+https://procesosjudiciales.funcionjudicial.gob.ec/
+
+# la informacion la guarda en su propio almacenamiento interno
+
+https://procesosjudiciales.funcionjudicial.gob.ec/busqueda-filtros
+
+datos de prueba
+
+Actor/Ofendido
+0968599020001
+1791251237001
+
+Demandado/Procesado
+0992339411001
+0968599020001
+
+
+[
+	{
+		No: int,
+     	fechaIngreso: date, 
+     	No.Proceso: double,
+     	EsDemandado: boolean,
+     	Accion: string,
+     	detail: [
+	     	{   	
+    			No: int,
+    			Fecha: date,
+    			Actores: string,
+    			demandados: string,
+				actuacionesJudiciales: [
+	    			{
+	    				fecha: date,
+	    				detalle: string,
+	    				info: string
+	    			}
+    			] 		
+    	 	}
+     	]
+	},
+	{...},
+	{...},	
+]
+
+guardar informacion en un json o bd, capaz y se usa una web
+
+pruebas:
+15 consultas en paralelo
+
+Nota: Considerando la potencial cantidad de procesos y subprocesos involucrados, es fundamental identificar el método más eficiente para la extracción de datos.
+
+
