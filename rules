@@ -5,6 +5,7 @@ https://procesosjudiciales.funcionjudicial.gob.ec/
 
 https://procesosjudiciales.funcionjudicial.gob.ec/busqueda-filtros
 
+
 datos de prueba
 
 Actor/Ofendido
@@ -23,21 +24,25 @@ Demandado/Procesado
      	No.Proceso: double,
      	EsDemandado: boolean,
      	Accion: string,
-     	detail: [
-	     	{   	
-    			No: int,
-    			Fecha: date,
-    			Actores: string,
-    			demandados: string,
-				actuacionesJudiciales: [
-	    			{
-	    				fecha: date,
-	    				detalle: string,
-	    				info: string
-	    			}
-    			] 		
-    	 	}
-     	]
+     	detail: {
+			general_detail: {},
+			specifi_details: [
+	     		{   	
+    				No: int,
+    				Fecha: date,
+    				Actores: string,
+    				demandados: string,
+					actuacionesJudiciales: [
+	    				{
+	    					fecha: date,
+	    					detalle: string,
+	    					info: string
+	    				}
+    				] 		
+    	 		}
+     		]
+		}
+		
 	},
 	{...},
 	{...},	
@@ -50,4 +55,7 @@ pruebas:
 
 Nota: Considerando la potencial cantidad de procesos y subprocesos involucrados, es fundamental identificar el método más eficiente para la extracción de datos.
 
+guias:
+https://docs.google.com/document/d/16wYgK26bEbH-u0kcwnYBiZ_YUBla-maOPAbuZAOZyNo/edit?usp=sharing
 
+https://github.com/Alejandro04/SimpleScraping/blob/master/scraping.py
