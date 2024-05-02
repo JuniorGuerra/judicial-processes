@@ -7,26 +7,23 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-
 from selenium.webdriver.common.action_chains import ActionChains
-
+import json
 
 processes_list = []
-def individual_process(process): 
+def individual_process(process, window_id, driver): 
     
     processes_detail_list = []
     performances_list = []
     
     process_text = process.text.splitlines()
     
-    
-    
     icon_detail = process.find_element(By.CLASS_NAME, "search-icon")
     if icon_detail:
         
         ActionChains(driver).key_down(Keys.CONTROL).click(icon_detail).key_up(Keys.CONTROL).perform()
         
-        new_window = [window for window in driver.window_handles if window != current_window_id][0]
+        new_window = [window for window in driver.window_handles if window != window_id][0]
         driver.switch_to.window(new_window)
 
         general_info_elements = driver.find_elements(By.XPATH, "//section[@class='filtros-busqueda']//*")
@@ -66,8 +63,9 @@ def individual_process(process):
                         "detail": process_panel[1],
                         "content": "..."
                     }
+                    #TODO: No aniadi el folder por un poquito de optimizacion
                     performances_list.append(performance)
-                    # No se especifica que hacer con el folder
+                    
                 process_details_dict = {
                     "no": incident_number,
                     "date": date,
@@ -83,6 +81,11 @@ def individual_process(process):
                 print("log: reading process")
                 continue 
         
+        driver.find_element(by=By.CLASS_NAME, value="btn-regresar")
+        
+        driver.close()
+        driver.switch_to.window(window_id)
+        
         detail = {
         "No": process_text[0],
         "Date:": process_text[1],
@@ -94,47 +97,49 @@ def individual_process(process):
            }
         }
         
+        return detail
+
+def save_json(txt):
+    with open("./../json/data.json", "w") as json_file:
+        json.dump(txt, json_file)
+
+def get_page_info(id: str, url: str, IsActor: bool, driver_path: str):
+    
+    service = Service(r"{}".format(driver_path))
+
+    service.start()
+
+    options = webdriver.ChromeOptions()
+    options.add_argument('--no-sandbox') 
+    driver = webdriver.Chrome(service=service, options=options)
+    driver.implicitly_wait(time_to_wait=10)
+
+    driver.get(url)
+
+    if IsActor:
+        element = driver.find_element(by=By.ID, value="mat-input-1")
+    else:
+        element = driver.find_element(by=By.ID, value="mat-input-3")
+
+    element.clear()
+    element.send_keys(id)
+
+    searchButton = driver.find_element(by=By.CLASS_NAME, value="boton-buscar")
+    driver.implicitly_wait(5)
+    searchButton.click()
+
+
+    processes = driver.find_elements(By.CLASS_NAME, "causa-individual")
+
+    current_window_id = driver.current_window_handle
+
+    all_process_details = []
+
+    for process in processes:
+        detail = individual_process(process, current_window_id, driver)
+        all_process_details.append(detail)
+
+
+
         
-        print(detail)
-        
-        
-        driver.find_element(by=By.CLASS_NAME, value="btn-regresar")
-        
-        driver.close()
-        driver.switch_to.window(current_window_id)
-        
-
-
-service = Service(r"{}".format("/home/juno/Downloads/chrome-2/chromedriver-linux64/chromedriver"))
-
-service.start()
-
-options = webdriver.ChromeOptions()
-options.add_argument('--no-sandbox') 
-
-driver = webdriver.Chrome(service=service, options=options)
-driver.implicitly_wait(time_to_wait=10)
-
-driver.get("https://procesosjudiciales.funcionjudicial.gob.ec/busqueda-filtros")
-
-kindOfDemand = ""
-if kindOfDemand == "":
-    element = driver.find_element(by=By.ID, value="mat-input-1")
-else:
-    element = driver.find_element(by=By.ID, value="mat-input-3")
-
-element.clear()
-element.send_keys("1791251237001")
-
-searchButton = driver.find_element(by=By.CLASS_NAME, value="boton-buscar")
-driver.implicitly_wait(5)
-searchButton.click()
-
-
-processes = driver.find_elements(By.CLASS_NAME, "causa-individual")
-
-current_window_id = driver.current_window_handle
-
-
-for process in processes:
-    individual_process(process)
+get_page_info("1791251237001", "https://procesosjudiciales.funcionjudicial.gob.ec/busqueda-filtros", True, "/home/juno/Downloads/chrome-2/chromedriver-linux64/chromedriver")
