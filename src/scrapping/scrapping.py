@@ -102,6 +102,8 @@ def individual_process(process, window_id, driver):
 def save_json(txt, filename):
     with open("./../json/"+filename, "w") as json_file:
         json.dump(txt, json_file)
+        json_file.close()
+        
 
 def get_page_info(id: str, url: str, IsActor: bool, driver_path: str):
     
@@ -141,6 +143,7 @@ def get_page_info(id: str, url: str, IsActor: bool, driver_path: str):
         all_process_details.append(detail)
     
     save_json(all_process_details, id + "_" + filename_diff + ".json")
+    return True
 
 
 
