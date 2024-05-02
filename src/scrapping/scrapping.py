@@ -113,6 +113,7 @@ def get_page_info(id: str, url: str, IsActor: bool, driver_path: str):
 
     options = webdriver.ChromeOptions()
     options.add_argument('--no-sandbox') 
+    options.add_argument('--headless') # TODO: Comentar para visualizar 
     driver = webdriver.Chrome(service=service, options=options)
     driver.implicitly_wait(time_to_wait=10)
 
@@ -148,4 +149,4 @@ def get_page_info(id: str, url: str, IsActor: bool, driver_path: str):
 
 
         
-# get_page_info("1791251237001", "https://procesosjudiciales.funcionjudicial.gob.ec/busqueda-filtros", True, "/home/juno/Downloads/chrome-2/chromedriver-linux64/chromedriver")
+get_page_info("1791251237001", "https://procesosjudiciales.funcionjudicial.gob.ec/busqueda-filtros", True, "/home/juno/Downloads/chrome-2/chromedriver-linux64/chromedriver")
