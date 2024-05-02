@@ -4,7 +4,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
+from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException, TimeoutException
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.action_chains import ActionChains
@@ -76,7 +76,7 @@ def individual_process(process, window_id, driver):
                 processes_detail_list.append(process_details_dict)
                 driver.back()
 
-            except (NoSuchElementException, StaleElementReferenceException) as error:
+            except (NoSuchElementException, StaleElementReferenceException, TimeoutException) as error:
                 # print("log: reading process", error)
                 print("log: reading process")
                 continue 
@@ -99,8 +99,8 @@ def individual_process(process, window_id, driver):
         
         return detail
 
-def save_json(txt):
-    with open("./../json/data.json", "w") as json_file:
+def save_json(txt, filename):
+    with open("./../json/"+filename, "w") as json_file:
         json.dump(txt, json_file)
 
 def get_page_info(id: str, url: str, IsActor: bool, driver_path: str):
@@ -115,10 +115,11 @@ def get_page_info(id: str, url: str, IsActor: bool, driver_path: str):
     driver.implicitly_wait(time_to_wait=10)
 
     driver.get(url)
-
+    filename_diff = "actor"
     if IsActor:
         element = driver.find_element(by=By.ID, value="mat-input-1")
     else:
+        filename_diff = "infractor"
         element = driver.find_element(by=By.ID, value="mat-input-3")
 
     element.clear()
@@ -138,8 +139,10 @@ def get_page_info(id: str, url: str, IsActor: bool, driver_path: str):
     for process in processes:
         detail = individual_process(process, current_window_id, driver)
         all_process_details.append(detail)
+    
+    save_json(all_process_details, id + "_" + filename_diff + ".json")
 
 
 
         
-get_page_info("1791251237001", "https://procesosjudiciales.funcionjudicial.gob.ec/busqueda-filtros", True, "/home/juno/Downloads/chrome-2/chromedriver-linux64/chromedriver")
+# get_page_info("1791251237001", "https://procesosjudiciales.funcionjudicial.gob.ec/busqueda-filtros", True, "/home/juno/Downloads/chrome-2/chromedriver-linux64/chromedriver")
