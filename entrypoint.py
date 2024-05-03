@@ -73,13 +73,11 @@ def new_process():
     return result
 
 @app.route('/api/v1/document/<document_id>', methods=['GET'])
-@basic_auth.required
-def get_document(id):
-    process_id = id
-    response = {"document": process_id}
+def get_document(document_id):
+    response = {"document": document_id}
     return jsonify(response)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
 
 
