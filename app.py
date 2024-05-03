@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from flask_basicauth import BasicAuth
 from dotenv import load_dotenv
 from flask import abort
+from flask_cors import CORS
 
 import os
 
@@ -15,6 +16,8 @@ def create_app():
     return app
 
 app = create_app()
+CORS(app)
+
 
 app.config['BASIC_AUTH_USERNAME'] = os.getenv("BASIC_AUTH_USERNAME")
 app.config['BASIC_AUTH_PASSWORD'] = os.getenv("BASIC_AUTH_PASSWORD")
@@ -73,13 +76,13 @@ def new_process():
     return result
 
 @app.route('/api/v1/document/<document_id>', methods=['GET'])
-@basic_auth.required
-def get_document(id):
-    process_id = id
-    response = {"document": process_id}
+def get_document(document_id):
+    response = {"document": document_id}
     return jsonify(response)
 
+
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0')
 
 
