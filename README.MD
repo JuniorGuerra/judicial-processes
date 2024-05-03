@@ -39,35 +39,54 @@ Si queda alguna duda con la prueba no dude en contactarme y notificarme lo suced
 
 ## Desarrollo
 
-En rules esta las bases que use durante el analisis del programa
+## Campos
+
+- `No`: Número de identificación del proceso (entero).
+- `fechaIngreso`: Fecha de ingreso del proceso (formato de fecha).
+- `No.Proceso`: Número de proceso (doble).
+- `EsDemandado`: Indicador booleano que especifica si el proceso tiene demandados.
+- `Accion`: Acción relacionada con el proceso (cadena de texto).
+- `detail`: Detalles adicionales del proceso.
+  - `general_detail`: Detalles generales del proceso.
+  - `specifi_details`: Detalles específicos del proceso, incluyendo múltiples registros.
+    - `No`: Número de identificación del detalle específico (entero).
+    - `Fecha`: Fecha asociada al detalle específico (formato de fecha).
+    - `Actores`: Lista de actores involucrados en el proceso (cadena de texto).
+    - `demandados`: Lista de demandados en el proceso (cadena de texto).
+    - `actuacionesJudiciales`: Lista de actuaciones judiciales realizadas, incluyendo múltiples registros.
+      - `fecha`: Fecha de la actuación judicial (formato de fecha).
+      - `detalle`: Detalle de la actuación judicial (cadena de texto).
+      - `info`: Información adicional sobre la actuación judicial (cadena de texto).
+
+## Ejemplo de Uso
+
 ```json
 [
 	{
-		No: int,
-     	fechaIngreso: date, 
-     	No.Proceso: double,
-     	EsDemandado: boolean,
-     	Accion: string,
-     	detail: {
-			general_detail: {},
-			specifi_details: [
-	     		{   	
-    				No: int,
-    				Fecha: date,
-    				Actores: string,
-    				demandados: string,
-					actuacionesJudiciales: [
-	    				{
-	    					fecha: date,
-	    					detalle: string,
-	    					info: string
-	    				}
-    				] 		
-    	 		}
-     		]
+		"No": 12981312781923,
+		"fechaIngreso": "2024-01-01",
+		"No.Proceso": 123123,
+		"EsDemandado": true,
+		"Accion": "Descripción de la acción",
+		"detail": {
+			"general_detail": {},
+			"specifi_details": [
+				{
+					"No": 1,
+					"Fecha": "2024-02-01",
+					"Actores": "Lista de actores",
+					"demandados": "Lista de demandados",
+					"actuacionesJudiciales": [
+						{
+							"fecha": "2024-02-15",
+							"detalle": "Detalle de la actuación judicial",
+							"info": "Información adicional"
+						}
+					]
+				}
+			]
 		}
 	},
-	{...},
-	{...},	
+	{},
+	{}
 ]
-```
