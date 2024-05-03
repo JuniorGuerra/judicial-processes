@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from flask_basicauth import BasicAuth
 from dotenv import load_dotenv
 from flask import abort
+from flask_cors import CORS
 
 import os
 
@@ -15,6 +16,8 @@ def create_app():
     return app
 
 app = create_app()
+CORS(app)
+
 
 app.config['BASIC_AUTH_USERNAME'] = os.getenv("BASIC_AUTH_USERNAME")
 app.config['BASIC_AUTH_PASSWORD'] = os.getenv("BASIC_AUTH_PASSWORD")
