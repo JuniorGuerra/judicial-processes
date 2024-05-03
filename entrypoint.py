@@ -24,7 +24,7 @@ chrome_driver_local_path = os.getenv("CHROME_DRIVER_LOCAL_PATH")
 basic_auth = BasicAuth(app)
 
 
-# Proceso existente para actores
+
 @app.route('/api/v1/existing_process/<id>/actor', methods=['GET'])
 @basic_auth.required
 def get_process_actor(id):
@@ -32,7 +32,7 @@ def get_process_actor(id):
     result = load_file(file_path)
     return result
 
-# Proceso existente para infractores
+
 @app.route('/api/v1/existing_process/<id>/infractor', methods=['GET'])
 @basic_auth.required
 def get_process_infractor(id):
@@ -56,8 +56,6 @@ def new_process():
         return jsonify(error_response), 400
 
     isActor = request.json["isActor"]
-
-    response = {"id": id, "isActor": isActor}
     
     if not isinstance(isActor, bool):
         error_response = {"error": "isActor is boolean value"}
@@ -75,7 +73,6 @@ def new_process():
     
     return result
 
-# Mostar documento del proceso
 @app.route('/api/v1/document/<document_id>', methods=['GET'])
 @basic_auth.required
 def get_document(id):
