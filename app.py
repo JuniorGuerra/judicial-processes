@@ -7,7 +7,7 @@ from flask_cors import CORS
 import os
 
 from src.utils.files import load_file
-from src.scrapping.scrapping import get_page_info
+from src.scraping.scraping import get_page_info
 
 load_dotenv()
 
@@ -74,12 +74,6 @@ def new_process():
     result = load_file(file_path)
     
     return result
-
-@app.route('/api/v1/document/<document_id>', methods=['GET'])
-def get_document(document_id):
-    response = {"document": document_id}
-    return jsonify(response)
-
 
 
 if __name__ == '__main__':
