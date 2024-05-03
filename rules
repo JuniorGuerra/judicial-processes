@@ -54,8 +54,3 @@ pruebas:
 15 consultas en paralelo
 
 Nota: Considerando la potencial cantidad de procesos y subprocesos involucrados, es fundamental identificar el método más eficiente para la extracción de datos.
-
-guias:
-https://docs.google.com/document/d/16wYgK26bEbH-u0kcwnYBiZ_YUBla-maOPAbuZAOZyNo/edit?usp=sharing
-
-https://github.com/Alejandro04/SimpleScraping/blob/master/scraping.py

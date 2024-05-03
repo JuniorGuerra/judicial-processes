@@ -99,13 +99,17 @@ def individual_process(process, window_id, driver):
         
         return detail
 
-def save_json(txt, filename):
-    with open("./../json/"+filename, "w") as json_file:
+def save_json(txt, filename, isNotLocal):
+    path = "../json/"
+    if isNotLocal:
+        path = "./src/json/"
+    
+    with open(path+filename, "w") as json_file:
         json.dump(txt, json_file)
         json_file.close()
         
 
-def get_page_info(id: str, url: str, IsActor: bool, driver_path: str):
+def get_page_info(id: str, url: str, IsActor: bool, driver_path: str, isLocal=None):
     
     service = Service(r"{}".format(driver_path))
 
@@ -113,7 +117,7 @@ def get_page_info(id: str, url: str, IsActor: bool, driver_path: str):
 
     options = webdriver.ChromeOptions()
     options.add_argument('--no-sandbox') 
-    options.add_argument('--headless') # TODO: Comentar para visualizar 
+    options.add_argument('--headless') # TODO: Comentar para visualizar
     driver = webdriver.Chrome(service=service, options=options)
     driver.implicitly_wait(time_to_wait=10)
 
@@ -143,10 +147,10 @@ def get_page_info(id: str, url: str, IsActor: bool, driver_path: str):
         detail = individual_process(process, current_window_id, driver)
         all_process_details.append(detail)
     
-    save_json(all_process_details, id + "_" + filename_diff + ".json")
+    save_json(all_process_details, id + "_" + filename_diff + ".json", isLocal)
     return True
 
 
 
         
-get_page_info("1791251237001", "https://procesosjudiciales.funcionjudicial.gob.ec/busqueda-filtros", True, "/home/juno/Downloads/chrome-2/chromedriver-linux64/chromedriver")
+# get_page_info("1791251237001", "https://procesosjudiciales.funcionjudicial.gob.ec/busqueda-filtros", True, "/home/juno/Downloads/chrome-2/chromedriver-linux64/chromedriver")
