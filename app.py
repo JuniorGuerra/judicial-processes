@@ -80,7 +80,12 @@ def get_document(document_id):
     response = {"document": document_id}
     return jsonify(response)
 
+
+@app.route("/")
+def hello_world():
+    return "<h1 style='color:green'>Hello World!</h1>"
+
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0')
 
 

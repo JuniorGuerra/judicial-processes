@@ -152,5 +152,4 @@ def get_page_info(id: str, url: str, IsActor: bool, driver_path: str, isLocal=No
 
 
 
-        
 # get_page_info("1791251237001", "https://procesosjudiciales.funcionjudicial.gob.ec/busqueda-filtros", True, "/home/juno/Downloads/chrome-2/chromedriver-linux64/chromedriver")
