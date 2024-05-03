@@ -1,17 +1,24 @@
-# judicial-processes
-API rest para scraping a una pagina web hecha con python
+# Judicial Processes API
+
+Esta API REST proporciona funcionalidades para realizar web scraping en una página web utilizando Python.
+
+## Tecnologías Utilizadas
 
 - Python
 - Selenium
 - Flask
-- chrome-driver
+- Chrome Driver
 
-## Importante
-el programa puede ser ejecutado completamente, esto quiere decir que desde la api se puede hacer el scraping sin necesidad de tener que hacer el scraping por separado, claro esto tuvo que sacrificar algo de la prueba pero tome el riesgo, de igual forma se puede ejecutar de forma independiente el scraping para hacer su testing como se encuentra en el archivo scrapping_test.py en la ruta ./src/scrapping/ 
-Si el usuario quiere ver en tiempo real lo que hace el scraping puede comentar la linea 120 del archivo ./src/scrapping/scraping.py
+## Descripción
 
-### Ejecucion
-para ejecutar el programa completo solo es poner variables en .env y :
+La API puede ser ejecutada completamente, lo que significa que se puede realizar el web scraping desde la propia API sin necesidad de ejecutar el scraping por separado. Sin embargo, para aquellos interesados en realizar pruebas independientes, se proporciona la opción de ejecutar el scraping por separado, como se muestra en el archivo `scrapping_test.py` en la ruta `./src/scrapping/`.
+
+Si deseas ver en tiempo real lo que hace el scraping, puedes comentar la línea 120 del archivo `./src/scrapping/scraping.py`.
+
+## Ejecución
+
+Para ejecutar el programa completo, solo necesitas configurar las variables en el archivo `.env` y luego ejecutar:
+
 ```sh
 python app.py
 ```
