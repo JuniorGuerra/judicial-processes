@@ -20,6 +20,9 @@ Si deseas ver en tiempo real lo que hace el scraping, puedes comentar la línea 
 Para ejecutar el programa completo, solo necesitas configurar las variables en el archivo `.env` y luego ejecutar:
 
 ```sh
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
 python app.py
 ```
 ### pruebas
