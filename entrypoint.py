@@ -24,7 +24,6 @@ chrome_driver_local_path = os.getenv("CHROME_DRIVER_LOCAL_PATH")
 basic_auth = BasicAuth(app)
 
 
-
 @app.route('/api/v1/existing_process/<id>/actor', methods=['GET'])
 @basic_auth.required
 def get_process_actor(id):
